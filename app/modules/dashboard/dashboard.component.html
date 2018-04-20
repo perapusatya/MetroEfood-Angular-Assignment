@@ -1,0 +1,104 @@
+<div class="container-fluid" style="overflow: scroll;">
+<div class="row" style="min-height: 172px;">
+	<div class="col-lg-12 col-sm-12 col-md-12" style="background-color: whitesmoke;padding: 16px;">
+	<h1 style="font-size: 2.5rem;text-align: center;padding-bottom: 23px;color: red;">Metro Shopping Site</h1>
+		<div class="row">
+		
+		<div class="offset-md-3 col-md-5">
+		<div class="search1">
+			Product Search: 
+			
+		
+			<input ng-model="$ctrl.page.searchData" name="searchName" maxlength="25" ng-pattern="/^[a-zA-Z]*$/" placeholder="Enter product name" >
+		
+			<button type="button" class="btn btn-success" ng-click="$ctrl.searchForProduct()" >Search</button>
+			
+			<!--<button type="button" class="btn btn-success" ng-click="$ctrl.searchForProduct()" ng-pattern="/^[a-zA-Z]*$/">Search</button>-->
+			
+			
+		</div>
+		</div>
+		<div class="col-md-3">
+		<div class="search">
+			<button type="button" class="btn btn-success" ng-click="$ctrl.checkItemInCart()">Shopping List&nbsp&nbsp <span class="badge" style="color:red;font-size: 14px;background-color: white;" ng-if="$ctrl.badge > 0"><b>{{$ctrl.badge}}</b></span></button>
+			
+			</div>
+		</div>
+		</div>
+		
+		<div class="offset-md-4 col-md-4 ng-scope" style="font-size: 14px;color: red;" ng-if="$ctrl.error == 1 && !$ctrl.page.searchData">
+		<span>Please enter product name to search</span>
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+
+    <div class="col-lg-12 col-sm-12" style="min-height: 658px;">
+
+		<div ng-if="$ctrl.prod == 0" class="col-lg-2 col-sm-2 innerDiv" style="text-align:center;min-height:280px;" ng-repeat="product in $ctrl.products | filter:$ctrl.page.searchData:strict" >
+			
+		<div min-height: 120px;>
+			<img alt="{{product.name}}" style="width:68px;min-height: 120px;" src="https://www.real.de/lebensmittelshop{{product.images[0].url}}" />
+		</div>
+		<div style="min-height: 65px;">
+			<span style="min-height: 65px;font-size: 12px;word-wrap: break-word;">{{product.name}}</span><br>
+			</div>
+		<div style="min-height:25px;">
+
+
+		<div style="min-height: 10px;padding-bottom:5px;">
+			
+			<span class="icon-star is-hidden" style="min-height: 10px;">{{product.price.value }} {{product.price.currencyIso}}</span>
+
+		</div>
+		<div style="min-height: 15px;>
+		 <button type="button" class="btn btn-success" ng-click="$ctrl.addToCart(product.images[0].url,product.price.value,product.numberContentUnits,product.code,product.price.currencyIso,product.code,product.name)">Add To cart</button>
+		</div>
+
+	 </div>
+	</div>
+
+	<div id="notFoundDiv" ng-if="($ctrl.products|filter:$ctrl.page.searchData:strict).length==0 || $ctrl.products.length==0 || $ctrl.products.length==0 || $ctrl.prod == 1 " style="color: red; font-weight: bold;text-align:center;padding: 137px;font-size: 26px;">No Products Found</div>  
+	</div>
+	
+	
+	<div class="col-lg-12 col-sm-12" style="text-align:center;margin: 12px;" ng-if="$ctrl.prod == 0">
+	   	 <button type="button"  style="padding:13px;" class="pages" ng-click="$ctrl.previousPage()" ng-if="$ctrl.page.currentPage >1">Previous Page</button>&nbsp&nbsp
+		 <input type="number"  ng-model="$ctrl.page.offset" min="1" max="$ctrl.page.totalPages" ng-change="$ctrl.currentPage($ctrl.page.offset)"/>
+		 
+		 
+		 <button type="button" class="pages" style="padding:13px;" ng-click="$ctrl.nextPage()" ng-if="$ctrl.page.currentPage >=0 && $ctrl.page.currentPage <=$ctrl.page.totalPages">Next Page</button>
+		 
+	</div>
+	
+	<div class="col-lg-12 col-sm-12" style="text-align:center;margin: 12px;color:red;" ng-if="$ctrl.page.offset == null ">
+	   	
+		 <span>Please enter valid page number </span>
+	</div>
+	<div>
+
+	</div>
+	</div>
+   </div>
+
+
+
+<style>
+
+.innerDiv {
+    
+    border: 1px solid wheat;
+    background-color: white;
+	padding:15px;
+	float:left;
+	margin:20px;
+	//height:32%;
+
+}
+
+.pages {
+	background-color: wheat;
+	color: black;
+	border: 1px wheat;
+}
+
+</style>

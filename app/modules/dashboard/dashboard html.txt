@@ -1,0 +1,45 @@
+<div class="container-fluid">
+ <button type="button" class="btn btn-success" ng-click="$ctrl.checkItemInCart()">Showcart</button>
+<div class="row">
+   <div>
+	<p>
+	  Search: <input ng-model="$ctrl.page.searchData">
+	   <button type="button" class="btn btn-success" ng-click="$ctrl.searchForProduct()">Search</button>
+
+	   
+	</p> 
+	
+	   	 <button type="button" class="btn btn-success" ng-click="$ctrl.previousPage()" ng-if="$ctrl.page.currentPage >0">Previous</button>
+		 <button type="button" class="btn btn-success" ng-click="$ctrl.nextPage()" ng-if="$ctrl.page.currentPage >=0 && $ctrl.page.currentPage <=$ctrl.page.totalPages">Next</button>
+
+	    <!--<tr ng-repeat="product in store.products | orderBy:'name' | filter:search" >-->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Description</th>
+          <th>Brand</th>
+          <th>Price</th>
+		  <th>Action</th>	
+		  	
+          
+        </tr>
+      </thead>
+      <tbody>
+	      <!-- <tr  ng-repeat="product in $ctrl.products | filter:page.searchData">-->
+			  
+           <tr  ng-repeat="product in $ctrl.products">
+			  
+			  
+          <td><img src="https://www.real.de/lebensmittelshop{{product.images[0].url}}" class="rounded" alt="Cinque Terre" width="50" height="50"></td>
+          <td><div>{{product.description}}</div></td>
+          <td>{{product.brand}}</td>
+          <td>{{product.price.value | currency:product.price.currencyIso}}</td>
+			<td> <button type="button" class="btn btn-success" ng-click="$ctrl.addToCart(product.images[0].url,product.price.value,product.numberContentUnits,product.code,product.price.currencyIso)">Add To cart</button></td>
+          
+        </tr>
+      </tbody>
+    </table>
+</div>
+</div>
+</div>

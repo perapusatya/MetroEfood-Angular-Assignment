@@ -1,0 +1,120 @@
+
+<div class="container-fluid">
+<div class="row">
+
+    <!--<h1 style="text-align:center;color:red">{{ $root.pageTitle }}</h1>-->
+	
+<div class="innerDiv" ng-if="$ctrl.displayCart==0">
+ <!--<button type="button" class="btn btn-success" ng-click="$ctrl.previousPage()">Back</button>-->
+</div>
+ <br/><br/><br/>
+
+<div class="col-lg-12 col-sm-12 col-md-12" style="text-align:center;float:right;">
+
+  <p><h3>{{$ctrl.cartListName}}</h3>
+
+
+	<input ng-if="!$ctrl.showData" class="btn btn-success" type="button" ng-click="$ctrl.update()" value="Update Shopping List Name" />
+	 <div ng-if="$ctrl.showData"><br/>
+		<input type="text" id="modifieddata"  ng-model="$ctrl.modifieddata" maxlength="32"/><br/><br/>
+		<input class="btn btn-success" type="button" ng-click="$ctrl.save()" value="Update" />
+		<input class="btn btn-default" type="button" ng-click="$ctrl.cancel()" value="Cancel" />
+	</div>
+</p>
+</div>
+  <div class="innerDiv1">
+	<h1 ng-if="$ctrl.displayCart==0" style="text-align: center;color:green;">"No Products Added To Cart"</h1>
+	<button type="button" class="btn btn-success" style="margin-bottom: 26px;" ng-click="$ctrl.homePage()">Home</button>
+  <div>
+
+    <table class="table table-bordered" ng-if="$ctrl.displayCart>0">
+        <thead>
+          <tr>
+            <th  class="col-lg-3 col-sm-3">Product Details</th>
+            <th class="col-lg-2 col-sm-2">Price</th>
+            <th class="col-lg-3 col-sm-3">Quantity</th>
+            <th class="col-lg-2 col-sm-2">Total</th>
+			<th class="col-lg-2 col-sm-2">Action</th>
+          </tr>
+      </thead>
+	 <tbody>
+        <tr ng-repeat="item in $ctrl.prducts">
+            <td><img src="https://www.real.de/lebensmittelshop{{item.image}}" class="rounded" alt="Cinque Terre" width="50%" height="10%"/><br/>
+			<span style="min-height:5px;font-size: 11px;">{{item.name}}</span>
+			</td>           
+            <td class="align-middle">{{item.price }} {{item.currency}}</td>
+            <td class="align-middle">
+			  <div class="center">
+    
+              <p>
+			   <div class="input-group">
+                 <span class="input-group-btn" ng-click= "$ctrl.decQuantity($index, item.quantity)">
+                    <button type="button" class="btn btn-danger btn-number" >
+                     <span>-</span>
+                   </button>
+                 </span>
+                 <input type="text" name="quant[2]" class="form-control input-number" ng-model="item.quantity" style="text-align: center;" value="item.quantity"  min="1" max="100" readonly />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-success btn-number" ng-click = "$ctrl.incQuantity($index,item.quantity)">
+						<span>+</span>
+					</button>
+				</span>
+			   </div>
+	          </p>
+		     </div>
+			</td>
+            <td class="align-middle">{{item.quantity * item.price | number : 2}} {{item.currency}}</td>
+            <td class="align-middle">
+    			<button type="button" class="btn btn-success" ng-click="$ctrl.removeItemFromCart($index)">Remove Product</button>
+            </td>
+        </tr>
+	
+		<tr style="color:red" ng-if="$ctrl.total>0">
+			<td colspan="3" ><b>Grand Total</b></td>
+			<td colspan="2"><b>{{$ctrl.total | number : 2}} EUR</b></td>
+		</tr>
+		<tr ng-if="$ctrl.total>0">
+			<td colspan="5" ><button type="button" class="btn btn-success"  ng-click="$ctrl.checkOutPage()">Proceed to checkout</button></td>
+			
+		</tr>
+	</tbody>
+    </table>
+	
+	 <div class="innerDiv1">
+	   
+	   <button type="button" class="btn btn-success" ng-if="$ctrl.displayCart==1 && $ctrl.prducts.length > 4" style="margin-bottom: 26px;" ng-click="$ctrl.homePage()">Home</button>
+     <div>
+	
+	
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<style>
+.center{
+    width: 150px;
+    margin: 40px auto;
+  }
+  
+  .innerDiv {
+    background-color: white;
+	padding:15px;
+	float:left;
+	margin:15px;
+	width:100%;
+	height:32%;
+
+}
+.innerDiv1 {
+    background-color: white;
+	padding:15px;
+	float:right;
+	margin:15px;
+	width:100%;
+	height:32%;
+	text-align:center;
+
+}
+</style>
